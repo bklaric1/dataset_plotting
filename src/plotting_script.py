@@ -7,26 +7,32 @@ from clc_training_data_creator.datasets_def import load_dataset, TrainingDataOne
 def load_dataset_and_visualize(dataset_filename):
     print(f"Loading dataset ...")
 
-    dataset : List[LaneFeatureRecord] = load_dataset(dataset_filename)
+    dataset : List[TrainingDataOneTrack] = load_dataset(dataset_filename)
 
     print(f"loaded dataset.")
 
     for single_track in dataset:
         for ranking_problem in single_track.training_records:
-            feature_tensors = [feat.variance_based_features for feat in ranking_problem.lane_candidates_feat]
 
-            left_points = LaneFeatureRecord.left_points[0]
-            right_points = LaneFeatureRecord.right_points[1]
+            lane_lenght = []
+            ious_lenght = []
 
+            ious_lenght = ranking_problem.lane_candidates_ious
+
+            feat: LaneFeatureRecord
+            for feat in ranking_problem.lane_candidates_feat: #iteriert so viel Mal, wie viele Fahrbahnen es gibt
+
+                a = (feat.left_boundary_len + feat.right_boundary_len)/2
+
+                lane_lenght.append(a)
+    
             fig, ax = plt.subplots()
-
-            ax.plot(left_points, right_points, linewidth=2.0)
-
-            ax.set(xlim=(0, 8), xticks=np.arange(1, 8),  ylim=(0, 8), yticks=np.arange(1, 8))
+            ax.set_xlabel("lane_lenght")
+            ax.set_ylabel("ious_lenght")
+            colors = np.random.rand(len(lane_lenght))
+            plt.scatter(lane_lenght, ious_lenght, s=10, c=colors, alpha=0.5)
 
             plt.show()
             plt.close()
-            return
-
 
 load_dataset_and_visualize('/Users/benjaminklaric/Dataset & Training/dataset.pkl')
