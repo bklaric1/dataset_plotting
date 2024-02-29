@@ -25,11 +25,9 @@ def shap_plot(dataset):
 
     feature_pair = torch.unsqueeze(torch.stack(feature_pair).squeeze(), dim=0)
     
-    #model = torch.load('C:\\Users\\Benjamin\\git\\clc_lane_rating_nn\\models\\clc_ranker.pth')
-    model = torch.load('/Users/benjaminklaric/git/clc_lane_rating_nn/models/clc_ranker.pth', map_location=torch.device('cpu'))
+    model = torch.load('C:\\Users\\Benjamin\\git\\clc_lane_rating_nn\\models\\clc_ranker.pth', map_location=torch.device('cpu')) # - Windows
+    #model = torch.load('/Users/benjaminklaric/git/clc_lane_rating_nn/models/clc_ranker.pth', map_location=torch.device('cpu')) # - Mac
     model.eval()
-
-    #feature_pair = torch.tensor(feature_pair, requires_grad=True)
 
     print(feature_pair)
 
@@ -40,7 +38,6 @@ def shap_plot(dataset):
     print("feature_pair has following dimensions:", feature_pair.shape)
     print(feature_pair.grad)
 
-        
     def f(feature_pair):
         return model(torch.tensor(feature_pair, dtype=torch.float32, requires_grad=False)).detach().numpy()
 
@@ -48,15 +45,10 @@ def shap_plot(dataset):
     feature_pair_display = feature_pair[0, 0, :]
 
     # Flatten the feature pair for the explainer
-    #feature_pair_explainer = feature_pair.squeeze(0).detach().numpy()
-
-    # Flatten the feature pair for the explainer
     feature_pair_explainer = feature_pair.detach().numpy()  # Convert to numpy array
-    feature_pair_explainer = feature_pair_explainer.reshape(1, 2, 8)  # Reshape to (1, 2, 8)
 
-
-    print("this is f:", f)
     print("this is feature_pair_explainer", feature_pair_explainer)
+    print("feature_pair_explainer has following dimensions:", feature_pair_explainer.shape)
 
     # Create the SHAP explainer
     explainer = shap.KernelExplainer(f, feature_pair_explainer)
@@ -67,15 +59,6 @@ def shap_plot(dataset):
     # Plot the SHAP force plot
     shap.force_plot(explainer.expected_value, shap_values, feature_pair_display)
 
-    #print(f"Hallo: {feature_pair.shape}")
-
-    #print(model(feature_pair))
-    
-    #explainer = shap.Explainer(model, X)
-    #shap_values = explainer(X)
-
-    #shap.plots.waterfall(shap_values[0])
-
-#dataset = load_dataset_shap('C:\\Users\\Benjamin\\Downloads\\dataset.pkl')
-dataset = load_dataset_shap('/Users/benjaminklaric/Dataset & Training/dataset.pkl') # - Mac
+dataset = load_dataset_shap('C:\\Users\\Benjamin\\Downloads\\dataset.pkl') # - Windows
+#dataset = load_dataset_shap('/Users/benjaminklaric/Dataset & Training/dataset.pkl') # - Mac
 shap_plot(dataset)
