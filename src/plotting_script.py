@@ -20,7 +20,7 @@ def load_dataset_and_visualize(dataset_filename):
             ious_lenght = ranking_problem.lane_candidates_ious
 
             feat: LaneFeatureRecord
-            for feat in ranking_problem.lane_candidates_feat: #iteriert so viel Mal, wie viele Fahrbahnen es gibt
+            for feat in ranking_problem.lane_candidates_feat: #iteriert so viele Male, wie viele Fahrbahnen es gibt
 
                 a = (feat.left_boundary_len + feat.right_boundary_len)/2
 
@@ -35,4 +35,5 @@ def load_dataset_and_visualize(dataset_filename):
             plt.show()
             plt.close()
 
-load_dataset_and_visualize('/Users/benjaminklaric/Dataset & Training/dataset.pkl')
+#load_dataset_and_visualize('/Users/benjaminklaric/Dataset & Training/dataset.pkl') #Mac
+load_dataset_and_visualize("C:\\Users\\Benjamin\\Downloads\\Starkstrom\\dataset.pkl") #Windows

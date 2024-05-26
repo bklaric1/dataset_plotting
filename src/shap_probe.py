@@ -59,6 +59,6 @@ def shap_plot(dataset):
     # Plot the SHAP force plot
     shap.force_plot(explainer.expected_value, shap_values, feature_pair_display)
 
-dataset = load_dataset_shap('C:\\Users\\Benjamin\\Downloads\\dataset.pkl') # - Windows
+dataset = load_dataset_shap('C:\\Users\\Benjamin\\Downloads\\Starkstrom\\dataset.pkl') # - Windows
 #dataset = load_dataset_shap('/Users/benjaminklaric/Dataset & Training/dataset.pkl') # - Mac
 shap_plot(dataset)

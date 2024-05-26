@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #f = lambda x: torch.sin(x) + .3 * torch.exp(x)
-#f = lambda x: torch.sin(x) * 1/x + 0.3 * torch.cos(x)
 #f = lambda x: torch.sin(x) * 1/x + 0.3 * torch.cos(x) - 0.2 * 1/x + torch.exp(x) * 0.1
 f = lambda x: torch.log(x)
 x = torch.linspace(2, 8, 50)
@@ -40,8 +39,6 @@ for epoch in range(1000):
                 grad_np = param.grad.numpy()
                 non_zero_cnt = np.count_nonzero(
                     grad_np) / grad_np.size
-
-
                 print(f"Non-zero amount: {non_zero_cnt:.2f}")
 
 x_plot = torch.linspace(2, 8, 50)
