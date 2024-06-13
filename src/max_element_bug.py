@@ -23,7 +23,7 @@ def max_element_richtig(arr, comp):
             print(f"Best_index atm is:", best_index)
     return best_index
 
-print(f"Falscher Ansatz:")
-max_element_falsch(random_numbers, comp)
 print(f"Richtiger Ansatz:")
+max_element_falsch(random_numbers, comp)
+print(f"Falscher Ansatz:")
 max_element_richtig(random_numbers, comp)
